@@ -3,8 +3,6 @@ $this->headLink()->appendStylesheet($this->assetUrl('css/form.css', 'CollectingT
 $this->headScript()->appendFile($this->assetUrl('js/form.js', 'CollectingTogether'));
 ?>
 
-<?php echo $this->pageTitle('Find a collecting project', 2); ?>
-
 <form id="collecting-together-form" autocomplete="off" data-projects-url="<?php echo $this->escapeHtml($this->url('site/collecting-together', ['controller' => 'form', 'action' => 'projects'], true)); ?>">
     <?php echo $this->formRow($this->cfSelect); ?>
     <?php echo $this->formRow($this->gfSelect); ?>
