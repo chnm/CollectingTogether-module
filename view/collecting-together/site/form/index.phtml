@@ -1,10 +1,11 @@
 <?php
 $this->headLink()->appendStylesheet($this->assetUrl('css/form.css', 'CollectingTogether'));
+$this->headScript()->appendFile($this->assetUrl('js/form.js', 'CollectingTogether'));
 ?>
 
 <?php echo $this->pageTitle('Find a collecting project', 2); ?>
 
-<form id="collecting-together-form" data-projects-url="<?php echo $this->escapeHtml($this->url(null, ['action' => 'projects'], true)); ?>">
+<form id="collecting-together-form" autocomplete="off" data-projects-url="<?php echo $this->escapeHtml($this->url(null, ['action' => 'projects'], true)); ?>">
     <?php echo $this->formRow($this->cfSelect); ?>
     <?php echo $this->formRow($this->gfSelect); ?>
     <?php echo $this->formRow($this->mfSelect); ?>
@@ -12,32 +13,3 @@ $this->headLink()->appendStylesheet($this->assetUrl('css/form.css', 'CollectingT
 </form>
 
 <div id="collecting-together-projects"></div>
-
-<script>
-const form = document.getElementById('collecting-together-form');
-const projects = document.getElementById('collecting-together-projects');
-const cfSelect = document.getElementById('cf-select');
-const gfSelect = document.getElementById('gf-select');
-const mfSelect = document.getElementById('mf-select');
-const amSelect = document.getElementById('am-select');
-
-form.addEventListener('submit', e => e.preventDefault());
-form.addEventListener('change', e => filterProjects());
-document.addEventListener('DOMContentLoaded', filterProjects());
-
-async function filterProjects() {
-    query = {
-        cf: cfSelect.value,
-        gf: gfSelect.value,
-        mf: mfSelect.value,
-        am: amSelect.value,
-    };
-    let response = await fetch(form.dataset.projectsUrl, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(query)
-    });
-    let text = await response.text();
-    projects.innerHTML = text;
-};
-</script>

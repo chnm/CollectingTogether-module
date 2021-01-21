@@ -1,5 +1,11 @@
 <?php if ($projects): ?>
-<p><?php echo count($projects) ?> collecting projects meet your criteria:</p>
+<div>
+    <?php echo sprintf(
+        '%s collecting %s your criteria',
+        count($projects),
+        (1 === count($projects)) ? 'project meets' : 'projects meet'
+    ); ?>
+</div>
 <ul>
     <?php foreach ($projects as $project):  ?>
     <?php
@@ -15,8 +21,8 @@
         <div class="links">
             <?php echo sprintf(
                 '%s | %s | %s',
-                $collectingUrl ? $this->hyperlink('Contribute', $collectingUrl) : 'Contribute',
-                $collectionUrl ? $this->hyperlink('View Collection', $collectionUrl) : 'View Collection',
+                !$collectingUrl ? $this->hyperlink('Contribute', $collectingUrl, ['target' => '_blank']) : 'Contribute',
+                $collectionUrl ? $this->hyperlink('View Collection', $collectionUrl, ['target' => '_blank']) : 'View Collection',
                 $this->hyperlink('Project info', $project->siteUrl())
             ); ?>
         </div>
@@ -24,5 +30,5 @@
     <?php endforeach; ?>
 </ul>
 <?php else: ?>
-<p>No projects meet your criteria.</p>
+<p>No projects meet your criteria</p>
 <?php endif; ?>
