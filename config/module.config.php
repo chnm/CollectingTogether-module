@@ -12,6 +12,11 @@ return [
             'CollectingTogether\Controller\Site\Form' => Controller\Site\FormController::class,
         ],
     ],
+    'block_layouts' => [
+        'invokables' => [
+            'pageTitle' => Site\BlockLayout\CollectingTogetherForm::class,
+        ],
+    ],
     'router' => [
         'routes' => [
             'site' => [
@@ -26,7 +31,6 @@ return [
                             ],
                             'defaults' => [
                                 '__NAMESPACE__' => 'CollectingTogether\Controller\Site',
-                                'action' => 'index',
                             ],
                         ],
                     ],
