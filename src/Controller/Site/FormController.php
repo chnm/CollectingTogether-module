@@ -8,17 +8,17 @@ use Omeka\Mvc\Exception\NotFoundException;
 
 class FormController extends AbstractActionController
 {
-    const CLASS_ID_CP = 85; // mare:CollectingProject
+    const CLASS_ID_CP = 133; // mare:CollectingProject
 
-    const PROPERTY_ID_CF = 1; // mare:categoricalFocus
-    const PROPERTY_ID_GF = 1; // mare:geographicalFocus
-    const PROPERTY_ID_MF = 1; // mare:materialFocus
-    const PROPERTY_ID_AM = 1; // dcterms:accrualMethod
+    const PROPERTY_ID_CF = 233; // mare:categoricalFocus
+    const PROPERTY_ID_GF = 231; // mare:geographicalFocus
+    const PROPERTY_ID_MF = 232; // mare:materialFocus
+    const PROPERTY_ID_AM = 53; // dcterms:accrualMethod
 
-    const CUSTOM_VOCAB_ID_CF = 1; // Collecting Together: Categorical Focus
-    const CUSTOM_VOCAB_ID_GF = 1; // Collecting Together: Geographical Focus
-    const CUSTOM_VOCAB_ID_MF = 1; // Collecting Together: Material Focus
-    const CUSTOM_VOCAB_ID_AM = 1; // Collecting Together: Accrual Method
+    const CUSTOM_VOCAB_ID_CF = 5; // Collecting Together: Categorical Focus
+    const CUSTOM_VOCAB_ID_GF = 6; // Collecting Together: Geographical Focus
+    const CUSTOM_VOCAB_ID_MF = 8; // Collecting Together: Material Focus
+    const CUSTOM_VOCAB_ID_AM = 9; // Collecting Together: Accrual Method
 
     public function indexAction()
     {
