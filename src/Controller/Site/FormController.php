@@ -8,46 +8,53 @@ use Omeka\Mvc\Exception\NotFoundException;
 
 class FormController extends AbstractActionController
 {
-    const CUSTOM_VOCAB_ID_CATEGORY = 1;
-    const CUSTOM_VOCAB_ID_GEOGRAPHY = 1;
-    const CUSTOM_VOCAB_ID_MATERIAL = 1;
-    const CUSTOM_VOCAB_ID_METHOD = 1;
+    const CLASS_ID_CP = 1; // mare:CollectingProject
+
+    const PROPERTY_ID_CF = 1; // mare:categoricalFocus
+    const PROPERTY_ID_GF = 1; // mare:geographicalFocus
+    const PROPERTY_ID_MF = 1; // mare:materialFocus
+    const PROPERTY_ID_AM = 1; // dcterms:accrualMethod
+
+    const CUSTOM_VOCAB_ID_CF = 1; // Collecting Together: Categorical Focus
+    const CUSTOM_VOCAB_ID_GF = 1; // Collecting Together: Geographical Focus
+    const CUSTOM_VOCAB_ID_MF = 1; // Collecting Together: Material Focus
+    const CUSTOM_VOCAB_ID_AM = 1; // Collecting Together: Accrual Method
 
     public function indexAction()
     {
         // mare:categoricalFocus
-        $categorySelect = new Element\Select('category');
-        $categorySelect->setLabel('Categorical focus')
-            ->setAttribute('id', 'category-select')
+        $cfSelect = new Element\Select('cf');
+        $cfSelect->setLabel('Categorical focus')
+            ->setAttribute('id', 'cf-select')
             ->setEmptyOption('Select below')
-            ->setValueOptions($this->getTermsForSelect(self::CUSTOM_VOCAB_ID_CATEGORY));
+            ->setValueOptions($this->getTermsForSelect(self::CUSTOM_VOCAB_ID_CF));
 
         // mare:geographicalFocus
-        $geographySelect = new Element\Select('geography');
-        $geographySelect->setLabel('Geographical focus')
-            ->setAttribute('id', 'geography-select')
+        $gfSelect = new Element\Select('gf');
+        $gfSelect->setLabel('Geographical focus')
+            ->setAttribute('id', 'gf-select')
             ->setEmptyOption('Select below')
-            ->setValueOptions($this->getTermsForSelect(self::CUSTOM_VOCAB_ID_GEOGRAPHY));
+            ->setValueOptions($this->getTermsForSelect(self::CUSTOM_VOCAB_ID_GF));
 
         // mare:materialFocus
-        $materialSelect = new Element\Select('material');
-        $materialSelect->setLabel('Material focus')
-            ->setAttribute('id', 'material-select')
+        $mfSelect = new Element\Select('mf');
+        $mfSelect->setLabel('Material focus')
+            ->setAttribute('id', 'mf-select')
             ->setEmptyOption('Select below')
-            ->setValueOptions($this->getTermsForSelect(self::CUSTOM_VOCAB_ID_MATERIAL));
+            ->setValueOptions($this->getTermsForSelect(self::CUSTOM_VOCAB_ID_MF));
 
         // dcterms:accrualMethod
-        $methodSelect = new Element\Select('method');
-        $methodSelect->setLabel('Accrual method')
-            ->setAttribute('id', 'method-select')
+        $amSelect = new Element\Select('am');
+        $amSelect->setLabel('Accrual method')
+            ->setAttribute('id', 'am-select')
             ->setEmptyOption('Select below')
-            ->setValueOptions($this->getTermsForSelect(self::CUSTOM_VOCAB_ID_METHOD));
+            ->setValueOptions($this->getTermsForSelect(self::CUSTOM_VOCAB_ID_AM));
 
         $view = new ViewModel;
-        $view->setVariable('categorySelect', $categorySelect);
-        $view->setVariable('geographySelect', $geographySelect);
-        $view->setVariable('materialSelect', $materialSelect);
-        $view->setVariable('methodSelect', $methodSelect);
+        $view->setVariable('cfSelect', $cfSelect);
+        $view->setVariable('gfSelect', $gfSelect);
+        $view->setVariable('mfSelect', $mfSelect);
+        $view->setVariable('amSelect', $amSelect);
         return $view;
     }
 
@@ -57,11 +64,41 @@ class FormController extends AbstractActionController
         if (!$request->isPost()) {
             throw new NotFoundException;
         }
-        $query = json_decode($request->getContent(), true);
-        // @todo: filter projects by query then render them in the view template
+        $filterQuery = json_decode($request->getContent(), true);
+        $query = [
+            'resource_class_id' => self::CLASS_ID_CP,
+            'property' => [
+                [
+                    'joiner' => 'and',
+                    'property' => self::PROPERTY_ID_CF,
+                    'type' => 'eq',
+                    'text' => $filterQuery['cf'],
+                ],
+                [
+                    'joiner' => 'and',
+                    'property' => self::PROPERTY_ID_GF,
+                    'type' => 'eq',
+                    'text' => $filterQuery['gf'],
+                ],
+                [
+                    'joiner' => 'and',
+                    'property' => self::PROPERTY_ID_MF,
+                    'type' => 'eq',
+                    'text' => $filterQuery['mf'],
+                ],
+                [
+                    'joiner' => 'and',
+                    'property' => self::PROPERTY_ID_AM,
+                    'type' => 'eq',
+                    'text' => $filterQuery['am'],
+                ],
+            ],
+        ];
+        $projects = $this->api()->search('items', $query)->getContent();
 
         $view = new ViewModel;
         $view->setTerminal(true);
+        $view->setVariable('projects', $projects);
         return $view;
     }
 

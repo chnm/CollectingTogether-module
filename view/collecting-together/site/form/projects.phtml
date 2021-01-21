@@ -1,1 +1,31 @@
-
+<?php if ($projects): ?>
+<table class="tablesaw" data-tablesaw-mode="stack">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Institution</th>
+            <th>Description</th>
+            <th>Links</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($projects as $project): ?>
+        <?php $institution = $project->value('mare:originatingInstitution'); ?>
+        <tr>
+            <td><?php echo $project->linkPretty(); ?></td>
+            <td><?php echo $institution ? $institution->linkPretty() : ''; ?></td>
+            <td><?php echo $project->displayDescription(); ?></td>
+            <td>
+                <?php echo sprintf(
+                    '%s | %s',
+                    $this->hyperlink('Contribute', $project->value('mare:collectingUrl')),
+                    $this->hyperlink('View Collection', $project->value('mare:collectingUrl'))
+                ); ?>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<?php else: ?>
+<p>No projects meet your criteria.</p>
+<?php endif; ?>

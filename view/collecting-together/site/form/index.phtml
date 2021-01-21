@@ -1,32 +1,33 @@
 <?php echo $this->pageTitle('Find a collecting project'); ?>
 
 <form id="collecting-together-form" data-url="<?php echo $this->escapeHtml($this->url(null, ['action' => 'projects'], true)); ?>">
-    <?php echo $this->formRow($this->categorySelect); ?>
-    <?php echo $this->formRow($this->geographySelect); ?>
-    <?php echo $this->formRow($this->materialSelect); ?>
-    <?php echo $this->formRow($this->methodSelect); ?>
+    <?php echo $this->formRow($this->cfSelect); ?>
+    <?php echo $this->formRow($this->gfSelect); ?>
+    <?php echo $this->formRow($this->mfSelect); ?>
+    <?php echo $this->formRow($this->amSelect); ?>
 </form>
 
+<h2>Collecting projects</h2>
 <div id="collecting-together-projects"></div>
 
 <script>
 const form = document.getElementById('collecting-together-form');
-const categorySelect = document.getElementById('category-select');
-const geographySelect = document.getElementById('geography-select');
-const materialSelect = document.getElementById('material-select');
-const methodSelect = document.getElementById('method-select');
+const projects = document.getElementById('collecting-together-projects');
+const cfSelect = document.getElementById('cf-select');
+const gfSelect = document.getElementById('gf-select');
+const mfSelect = document.getElementById('mf-select');
+const amSelect = document.getElementById('am-select');
 
 form.addEventListener('submit', e => e.preventDefault());
-form.addEventListener('change', e => {
-    filterProjects();
-});
+form.addEventListener('change', e => filterProjects());
+document.addEventListener('DOMContentLoaded', filterProjects());
 
 async function filterProjects() {
     query = {
-        category: categorySelect.value,
-        geography: geographySelect.value,
-        material: materialSelect.value,
-        method: methodSelect.value,
+        cf: cfSelect.value,
+        gf: gfSelect.value,
+        mf: mfSelect.value,
+        am: amSelect.value,
     };
     let response = await fetch(form.dataset.url, {
         method: 'POST',
@@ -36,5 +37,6 @@ async function filterProjects() {
         body: JSON.stringify(query)
     });
     let text = await response.text();
+    projects.innerHTML = text;
 };
 </script>
