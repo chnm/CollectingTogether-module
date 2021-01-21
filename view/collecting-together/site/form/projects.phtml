@@ -1,31 +1,28 @@
 <?php if ($projects): ?>
-<table class="tablesaw" data-tablesaw-mode="stack">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Institution</th>
-            <th>Description</th>
-            <th>Links</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($projects as $project): ?>
-        <?php $institution = $project->value('mare:originatingInstitution'); ?>
-        <tr>
-            <td><?php echo $project->linkPretty(); ?></td>
-            <td><?php echo $institution ? $institution->linkPretty() : ''; ?></td>
-            <td><?php echo $project->displayDescription(); ?></td>
-            <td>
-                <?php echo sprintf(
-                    '%s | %s',
-                    $this->hyperlink('Contribute', $project->value('mare:collectingUrl')),
-                    $this->hyperlink('View Collection', $project->value('mare:collectingUrl'))
-                ); ?>
-            </td>
-        </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
+<p><?php echo count($projects) ?> collecting projects meet your criteria:</p>
+<ul>
+    <?php foreach ($projects as $project):  ?>
+    <?php
+    $institution = $project->value('mare:originatingInstitution');
+    $collectingUrl = $project->value('mare:collectingUrl');
+    $collectionUrl = $project->value('mare:collectionUrl');
+    ?>
+    <li>
+        <div class="thumbnail"><?php echo $this->thumbnail($project, 'square'); ?></div>
+        <div class="title"><?php echo $this->escapeHtml($project->displayTitle()); ?></div>
+        <div class="institution"><?php echo $institution ? $institution->linkPretty() : ''; ?></div>
+        <div class="description"><?php echo $this->escapeHtml($project->displayDescription()); ?></div>
+        <div class="links">
+            <?php echo sprintf(
+                '%s | %s | %s',
+                $collectingUrl ? $this->hyperlink('Contribute', $collectingUrl) : 'Contribute',
+                $collectionUrl ? $this->hyperlink('View Collection', $collectionUrl) : 'View Collection',
+                $this->hyperlink('Project info', $project->siteUrl())
+            ); ?>
+        </div>
+    </li>
+    <?php endforeach; ?>
+</ul>
 <?php else: ?>
 <p>No projects meet your criteria.</p>
 <?php endif; ?>

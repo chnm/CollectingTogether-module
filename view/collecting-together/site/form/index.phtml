@@ -1,13 +1,16 @@
-<?php echo $this->pageTitle('Find a collecting project'); ?>
+<?php
+$this->headLink()->appendStylesheet($this->assetUrl('css/form.css', 'CollectingTogether'));
+?>
 
-<form id="collecting-together-form" data-url="<?php echo $this->escapeHtml($this->url(null, ['action' => 'projects'], true)); ?>">
+<?php echo $this->pageTitle('Find a collecting project', 2); ?>
+
+<form id="collecting-together-form" data-projects-url="<?php echo $this->escapeHtml($this->url(null, ['action' => 'projects'], true)); ?>">
     <?php echo $this->formRow($this->cfSelect); ?>
     <?php echo $this->formRow($this->gfSelect); ?>
     <?php echo $this->formRow($this->mfSelect); ?>
     <?php echo $this->formRow($this->amSelect); ?>
 </form>
 
-<h2>Collecting projects</h2>
 <div id="collecting-together-projects"></div>
 
 <script>
@@ -29,11 +32,9 @@ async function filterProjects() {
         mf: mfSelect.value,
         am: amSelect.value,
     };
-    let response = await fetch(form.dataset.url, {
+    let response = await fetch(form.dataset.projectsUrl, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(query)
     });
     let text = await response.text();

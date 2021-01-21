@@ -8,7 +8,7 @@ use Omeka\Mvc\Exception\NotFoundException;
 
 class FormController extends AbstractActionController
 {
-    const CLASS_ID_CP = 1; // mare:CollectingProject
+    const CLASS_ID_CP = 85; // mare:CollectingProject
 
     const PROPERTY_ID_CF = 1; // mare:categoricalFocus
     const PROPERTY_ID_GF = 1; // mare:geographicalFocus
@@ -24,28 +24,28 @@ class FormController extends AbstractActionController
     {
         // mare:categoricalFocus
         $cfSelect = new Element\Select('cf');
-        $cfSelect->setLabel('Categorical focus')
+        $cfSelect->setLabel('Filter by category')
             ->setAttribute('id', 'cf-select')
             ->setEmptyOption('Select below')
             ->setValueOptions($this->getTermsForSelect(self::CUSTOM_VOCAB_ID_CF));
 
         // mare:geographicalFocus
         $gfSelect = new Element\Select('gf');
-        $gfSelect->setLabel('Geographical focus')
+        $gfSelect->setLabel('Filter by region')
             ->setAttribute('id', 'gf-select')
             ->setEmptyOption('Select below')
             ->setValueOptions($this->getTermsForSelect(self::CUSTOM_VOCAB_ID_GF));
 
         // mare:materialFocus
         $mfSelect = new Element\Select('mf');
-        $mfSelect->setLabel('Material focus')
+        $mfSelect->setLabel('Filter by material')
             ->setAttribute('id', 'mf-select')
             ->setEmptyOption('Select below')
             ->setValueOptions($this->getTermsForSelect(self::CUSTOM_VOCAB_ID_MF));
 
         // dcterms:accrualMethod
         $amSelect = new Element\Select('am');
-        $amSelect->setLabel('Accrual method')
+        $amSelect->setLabel('Filter by method')
             ->setAttribute('id', 'am-select')
             ->setEmptyOption('Select below')
             ->setValueOptions($this->getTermsForSelect(self::CUSTOM_VOCAB_ID_AM));
