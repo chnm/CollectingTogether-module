@@ -14,7 +14,7 @@ return [
     ],
     'block_layouts' => [
         'invokables' => [
-            'pageTitle' => Site\BlockLayout\CollectingTogetherForm::class,
+            'collectingTogetherForm' => Site\BlockLayout\CollectingTogetherForm::class,
         ],
     ],
     'router' => [
