@@ -10,6 +10,9 @@
     <?php foreach ($projects as $project):  ?>
     <?php
     $institution = $project->value('mare:originatingInstitution');
+    if ($institution && $institution->valueResource()) {
+        $institution = $institution->valueResource();
+    }
     $collectingUrl = $project->value('mare:collectingUrl');
     $collectionUrl = $project->value('mare:collectionUrl');
     ?>
