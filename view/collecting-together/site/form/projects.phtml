@@ -24,7 +24,7 @@
         <div class="links">
             <?php echo sprintf(
                 '%s | %s | %s',
-                !$collectingUrl ? $this->hyperlink('Contribute', $collectingUrl, ['target' => '_blank']) : 'Contribute',
+                $collectingUrl ? $this->hyperlink('Contribute', $collectingUrl, ['target' => '_blank']) : 'Contribute',
                 $collectionUrl ? $this->hyperlink('View Collection', $collectionUrl, ['target' => '_blank']) : 'View Collection',
                 $this->hyperlink('Project info', $project->siteUrl())
             ); ?>
