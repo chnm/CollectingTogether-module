@@ -16,7 +16,7 @@ class FormController extends AbstractActionController
         }
         $filterQuery = json_decode($request->getContent(), true);
         $query = [
-            'resource_class_id' => Module::CLASS_ID_CP,
+            'item_set_id' => Module::ITEM_SET_ID_CP,
             'property' => [
                 [
                     'joiner' => 'and',

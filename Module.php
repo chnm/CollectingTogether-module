@@ -5,7 +5,7 @@ use Omeka\Module\AbstractModule;
 
 class Module extends AbstractModule
 {
-    const CLASS_ID_CP = 133; // mare:CollectingProject
+    const ITEM_SET_ID_CP = 20448; // Collecting Projects
 
     const PROPERTY_ID_CF = 233; // mare:categoricalFocus
     const PROPERTY_ID_GF = 231; // mare:geographicalFocus
