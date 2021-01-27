@@ -15,18 +15,29 @@
     }
     $collectingUrl = $project->value('mare:collectingUrl');
     $collectionUrl = $project->value('mare:collectionUrl');
+    // Set the logo.
+    $logo = $this->thumbnail($project, 'medium');
+    if (!$logo) {
+        // There is no project logo. Use the institution logo.
+        $logo = $this->thumbnail($institution, 'medium');
+    }
+    if (!$logo) {
+        // There is no logo. Insert a placeholder image.
+        $logo = '';
+    }
     ?>
     <li>
-        <div class="thumbnail"><?php echo $this->thumbnail($project, 'square'); ?></div>
+        <div class="logo"><?php echo $logo; ?></div>
         <div class="title"><?php echo $this->escapeHtml($project->displayTitle()); ?></div>
-        <div class="institution"><?php echo $institution ? $institution->linkPretty() : ''; ?></div>
+        <div class="institution"><?php echo $institution ? $institution->displayTitle() : ''; ?></div>
         <div class="description"><?php echo $this->escapeHtml($project->displayDescription()); ?></div>
         <div class="links">
             <?php echo sprintf(
-                '%s | %s | %s',
+                '%s | %s | %s%s',
                 $collectingUrl ? $this->hyperlink('Contribute', $collectingUrl->uri()) : 'Contribute',
                 $collectionUrl ? $this->hyperlink('View Collection', $collectionUrl->uri()) : 'View Collection',
-                $this->hyperlink('Project info', $project->siteUrl())
+                $this->hyperlink('Project info', $project->siteUrl()),
+                $institution ? ' | ' . $this->hyperlink('Institution info', $institution->siteUrl()) : '',
             ); ?>
         </div>
     </li>
