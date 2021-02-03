@@ -10,10 +10,10 @@ suited to your materials. If you'd like to learn more about these projects,
 scroll down or visit <a href="">the directory</a>.</p>
 
 <form id="collecting-together-form" autocomplete="off" data-projects-url="<?php echo $this->escapeHtml($this->url('site/collecting-together', ['controller' => 'form', 'action' => 'projects'], true)); ?>">
-    <?php echo $this->formRow($this->cfSelect); ?>
-    <?php echo $this->formRow($this->gfSelect); ?>
-    <?php echo $this->formRow($this->mfSelect); ?>
     <?php echo $this->formRow($this->amSelect); ?>
+    <?php echo $this->formRow($this->mfSelect); ?>
+    <?php echo $this->formRow($this->gfSelect); ?>
+    <?php echo $this->formRow($this->cfSelect); ?>
     <button type="button" id="collecting-together-reset">Reset</button>
 </form>
 
