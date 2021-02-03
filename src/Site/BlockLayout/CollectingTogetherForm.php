@@ -26,28 +26,28 @@ class CollectingTogetherForm extends AbstractBlockLayout
     {
         // mare:categoricalFocus
         $cfSelect = new Element\Select('cf');
-        $cfSelect->setLabel('Filter by category')
+        $cfSelect->setLabel('What kind of collecting project are you looking for?')
             ->setAttribute('id', 'cf-select')
             ->setEmptyOption('Select below')
             ->setValueOptions($this->getTermsForSelect($view, Module::CUSTOM_VOCAB_ID_CF));
 
         // mare:geographicalFocus
         $gfSelect = new Element\Select('gf');
-        $gfSelect->setLabel('Filter by region')
+        $gfSelect->setLabel('Where are you from?')
             ->setAttribute('id', 'gf-select')
             ->setEmptyOption('Select below')
             ->setValueOptions($this->getTermsForSelect($view, Module::CUSTOM_VOCAB_ID_GF));
 
         // mare:materialFocus
         $mfSelect = new Element\Select('mf');
-        $mfSelect->setLabel('Filter by material')
+        $mfSelect->setLabel('What would you like to contribute?')
             ->setAttribute('id', 'mf-select')
             ->setEmptyOption('Select below')
             ->setValueOptions($this->getTermsForSelect($view, Module::CUSTOM_VOCAB_ID_MF));
 
         // dcterms:accrualMethod
         $amSelect = new Element\Select('am');
-        $amSelect->setLabel('Filter by method')
+        $amSelect->setLabel('How would you like to contribute?')
             ->setAttribute('id', 'am-select')
             ->setEmptyOption('Select below')
             ->setValueOptions($this->getTermsForSelect($view, Module::CUSTOM_VOCAB_ID_AM));
