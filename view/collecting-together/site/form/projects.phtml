@@ -1,5 +1,5 @@
 <?php if ($projects): ?>
-<div>
+<div class="results-copy">
     <?php echo sprintf(
         '%s collecting %s your criteria',
         count($projects),
@@ -35,13 +35,17 @@ if (!$logo) {
     <p class="institution"><?php echo $institution ? $institution->displayTitle() : ''; ?></p>
     <p class="description"><?php echo $this->escapeHtml($project->displayDescription()); ?></p>
     <div class="links">
-        <?php echo sprintf(
-            '%s | %s | %s%s',
-            $collectingUrl ? $this->hyperlink('Contribute', $collectingUrl->uri()) : 'Contribute',
-            $collectionUrl ? $this->hyperlink('View Collection', $collectionUrl->uri()) : 'View Collection',
-            $this->hyperlink('Project info', $project->siteUrl()),
-            $institution ? ' | ' . $this->hyperlink('Institution info', $institution->siteUrl()) : '',
-        ); ?>
+      <?php echo sprintf(
+          '%s | %s | %s%s',
+          $collectingUrl ? $this->hyperlink('Contribute', $collectingUrl->uri(), ['class' => 'o-icon-external contribute-link']) : 'Contribute',
+          $collectionUrl ? $this->hyperlink('View Collection', $collectionUrl->uri(), [
+              'class' => 'o-icon-external view-collection-link',
+              'target' => '_blank',
+              'aria-label' => 'External Link',
+          ]) : 'View Collection',
+          $this->hyperlink('Project info', $project->siteUrl(), ['class' => 'project-info-link']),
+          $institution ? ' | ' . $this->hyperlink('Institution info', $institution->siteUrl(), ['class' => 'institution-link']) : ''
+      ); ?>
     </div>
 </div>
 
