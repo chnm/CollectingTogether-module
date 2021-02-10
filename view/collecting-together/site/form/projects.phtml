@@ -17,7 +17,7 @@ $collectingUrl = $project->value('mare:collectingUrl');
 $collectionUrl = $project->value('mare:collectionUrl');
 // Set the logo.
 $logo = $this->thumbnail($project, 'medium');
-if (!$logo) {
+if (!$logo && $institution) {
     // There is no project logo. Use the institution logo.
     $logo = $this->thumbnail($institution, 'medium');
 }
