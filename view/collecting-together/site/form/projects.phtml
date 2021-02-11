@@ -27,25 +27,29 @@ if (!$logo) {
 }
 ?>
 
-<div class="logo cell medium-3">
-    <?php echo $logo; ?>
-</div>
-<div class="cell medium-9">
-    <h3 class="title"><?php echo $this->escapeHtml($project->displayTitle()); ?></h3>
-    <p class="institution"><?php echo $institution ? $institution->displayTitle() : ''; ?></p>
-    <p class="description"><?php echo $this->escapeHtml($project->displayDescription()); ?></p>
-    <div class="links">
-      <?php echo sprintf(
-          '%s | %s | %s%s',
-          $collectingUrl ? $this->hyperlink('Contribute', $collectingUrl->uri(), ['class' => 'o-icon-external contribute-link']) : 'Contribute',
-          $collectionUrl ? $this->hyperlink('View Collection', $collectionUrl->uri(), [
-              'class' => 'o-icon-external view-collection-link',
-              'target' => '_blank',
-              'aria-label' => 'External Link',
-          ]) : 'View Collection',
-          $this->hyperlink('Project info', $project->siteUrl(), ['class' => 'project-info-link']),
-          $institution ? ' | ' . $this->hyperlink('Institution info', $institution->siteUrl(), ['class' => 'institution-link']) : ''
-      ); ?>
+<div class="project">
+    <div class="logo">
+        <?php echo $logo; ?>
+    </div>
+    <div class="project-meta">
+        <h3 class="title"><?php echo $this->escapeHtml($project->displayTitle()); ?></h3>
+        <p class="institution"><?php echo $institution ? $institution->displayTitle() : ''; ?></p>
+        <?php if ($project->displayDescription() !== null): ?>
+        <p class="description"><?php echo $this->escapeHtml($project->displayDescription()); ?></p>
+        <?php endif; ?>
+        <div class="links">
+          <?php echo sprintf(
+              '%s | %s | %s%s',
+              $collectingUrl ? $this->hyperlink('Contribute', $collectingUrl->uri(), ['class' => 'o-icon-external contribute-link']) : 'Contribute',
+              $collectionUrl ? $this->hyperlink('View Collection', $collectionUrl->uri(), [
+                  'class' => 'o-icon-external view-collection-link',
+                  'target' => '_blank',
+                  'aria-label' => 'External Link',
+              ]) : 'View Collection',
+              $this->hyperlink('Project info', $project->siteUrl(), ['class' => 'project-info-link']),
+              $institution ? ' | ' . $this->hyperlink('Institution info', $institution->siteUrl(), ['class' => 'institution-link']) : ''
+          ); ?>
+        </div>
     </div>
 </div>
 
