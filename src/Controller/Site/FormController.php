@@ -48,6 +48,7 @@ class FormController extends AbstractActionController
         ];
         $projects = $this->api()->search('items', $query)->getContent();
 
+        // Move priority projects to the top of the list.
         $projectsPriority = [];
         $projectsNonPriority = [];
         foreach ($projects as $project) {
@@ -58,6 +59,12 @@ class FormController extends AbstractActionController
             }
         }
         $projects = array_merge($projectsPriority, $projectsNonPriority);
+
+        // Get the priority projects separately.
+        $projectsPriority = [];
+        foreach (Module::PRIORITY_ITEM_IDS as $id) {
+            $project = $this->api()->read('items', $id)->getContent();
+        }
 
         $view = new ViewModel;
         $view->setTerminal(true);
