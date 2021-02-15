@@ -1,6 +1,7 @@
 <?php
 namespace CollectingTogether;
 
+use Laminas\Mvc\MvcEvent;
 use Omeka\Module\AbstractModule;
 
 class Module extends AbstractModule
@@ -24,5 +25,13 @@ class Module extends AbstractModule
     public function getConfig()
     {
         return include sprintf('%s/config/module.config.php', __DIR__);
+    }
+
+    public function onBootstrap(MvcEvent $event)
+    {
+        parent::onBootstrap($event);
+
+        $acl = $this->getServiceLocator()->get('Omeka\Acl');
+        $acl->allow(null, 'CollectingTogether\Controller\Site\Form', 'projects');
     }
 }
