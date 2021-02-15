@@ -63,7 +63,7 @@ class FormController extends AbstractActionController
         // Get the priority projects separately.
         $projectsPriority = [];
         foreach (Module::PRIORITY_ITEM_IDS as $id) {
-            $projectsPriority = $this->api()->read('items', $id)->getContent();
+            $projectsPriority[] = $this->api()->read('items', $id)->getContent();
         }
 
         $view = new ViewModel;
