@@ -62,6 +62,7 @@ class FormController extends AbstractActionController
         $view = new ViewModel;
         $view->setTerminal(true);
         $view->setVariable('projects', $projects);
+        $view->setVariable('projectsPriority', $projectsPriority);
         return $view;
     }
 }

@@ -1,4 +1,5 @@
 <?php if ($projects): ?>
+
 <div class="results-copy">
     <?php echo sprintf(
         '%s collecting %s your criteria',
@@ -6,55 +7,18 @@
         (1 === count($projects)) ? 'project meets' : 'projects meet'
     ); ?>
 </div>
-
 <?php foreach ($projects as $project):  ?>
-<?php
-$institution = $project->value('mare:originatingInstitution');
-if ($institution && $institution->valueResource()) {
-    $institution = $institution->valueResource();
-}
-$collectingUrl = $project->value('mare:collectingUrl');
-$collectionUrl = $project->value('mare:collectionUrl');
-// Set the logo.
-$logo = $this->thumbnail($project, 'medium');
-if (!$logo && $institution) {
-    // There is no project logo. Use the institution logo.
-    $logo = $this->thumbnail($institution, 'medium');
-}
-if (!$logo) {
-    // There is no logo. Insert a placeholder image.
-    $logo = '';
-}
-?>
-
-<div class="project">
-    <div class="logo">
-        <?php echo $logo; ?>
-    </div>
-    <div class="project-meta">
-        <h3 class="title"><?php echo $this->escapeHtml($project->displayTitle()); ?></h3>
-        <p class="institution"><?php echo $institution ? $institution->displayTitle() : ''; ?></p>
-        <?php if ($project->displayDescription() !== null): ?>
-        <p class="description"><?php echo $this->escapeHtml($project->displayDescription()); ?></p>
-        <?php endif; ?>
-        <div class="links">
-          <?php echo sprintf(
-              '%s | %s | %s%s',
-              $collectingUrl ? $this->hyperlink('Contribute', $collectingUrl->uri(), ['class' => 'o-icon-external contribute-link']) : 'Contribute',
-              $collectionUrl ? $this->hyperlink('View Collection', $collectionUrl->uri(), [
-                  'class' => 'o-icon-external view-collection-link',
-                  'target' => '_blank',
-                  'aria-label' => 'External Link',
-              ]) : 'View Collection',
-              $this->hyperlink('Project info', $project->siteUrl(), ['class' => 'project-info-link']),
-              $institution ? ' | ' . $this->hyperlink('Institution info', $institution->siteUrl(), ['class' => 'institution-link']) : ''
-          ); ?>
-        </div>
-    </div>
-</div>
-
+<?php echo $this->partial('project.phtml', ['project' => $project]); ?>
 <?php endforeach; ?>
 
 <?php else: ?>
-<p>No projects meet your criteria</p>
+
+<p>No collecting projects meet your criteria. To find a collecting project, try
+choosing only the criteria which are most important to you. Or you can try one
+of these projects, which are collecting widely, if there is not a project more
+specific to your contributions.</p>
+<?php foreach ($projectsPriority as $project):  ?>
+<?php echo $this->partial('project.phtml', ['project' => $project]); ?>
+<?php endforeach; ?>
+
 <?php endif; ?>

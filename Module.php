@@ -20,6 +20,7 @@ class Module extends AbstractModule
 
     const PRIORITY_ITEM_IDS = [
         20589, // American Jewish Life Digital Collection
+        20507, // CAJM oral history project
     ];
 
     public function getConfig()
