@@ -17,6 +17,10 @@ class Module extends AbstractModule
     const CUSTOM_VOCAB_ID_MF = 8; // Collecting Together: Material Focus
     const CUSTOM_VOCAB_ID_AM = 9; // Collecting Together: Accrual Method
 
+    const PRIORITY_ITEM_IDS = [
+        20589, // American Jewish Life Digital Collection
+    ];
+
     public function getConfig()
     {
         return include sprintf('%s/config/module.config.php', __DIR__);

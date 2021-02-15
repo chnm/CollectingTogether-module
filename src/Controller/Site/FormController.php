@@ -16,6 +16,8 @@ class FormController extends AbstractActionController
         }
         $filterQuery = json_decode($request->getContent(), true);
         $query = [
+            'sort_by' => 'title',
+            'sort_order' => 'asc',
             'item_set_id' => Module::ITEM_SET_ID_CP,
             'property' => [
                 [
@@ -45,6 +47,17 @@ class FormController extends AbstractActionController
             ],
         ];
         $projects = $this->api()->search('items', $query)->getContent();
+
+        $projectsPriority = [];
+        $projectsNonPriority = [];
+        foreach ($projects as $project) {
+            if (in_array($project->id(), Module::PRIORITY_ITEM_IDS)) {
+                $projectsPriority[] = $project;
+            } else {
+                $projectsNonPriority[] = $project;
+            }
+        }
+        $projects = array_merge($projectsPriority, $projectsNonPriority);
 
         $view = new ViewModel;
         $view->setTerminal(true);
