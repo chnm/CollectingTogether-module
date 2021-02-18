@@ -29,7 +29,7 @@ if (!$logo) {
         <?php endif; ?>
         <div class="links">
           <?php echo sprintf(
-              '%s | %s | %s%s',
+              '%s | %s',
               $collectingUrl ? $this->hyperlink('Contribute', $collectingUrl->uri(), ['class' => 'o-icon-external contribute-link']) : 'Contribute',
               $collectionUrl ? $this->hyperlink('View Collection', $collectionUrl->uri(), [
                   'class' => 'o-icon-external view-collection-link',
@@ -37,7 +37,6 @@ if (!$logo) {
                   'aria-label' => 'External Link',
               ]) : 'View Collection',
               $this->hyperlink('Project info', $project->siteUrl(), ['class' => 'project-info-link']),
-              //$institution ? ' | ' . $this->hyperlink('Institution info', $institution->siteUrl(), ['class' => 'institution-link']) : ''
           ); ?>
         </div>
     </div>
