@@ -3,6 +3,7 @@ $institution = $project->value('mare:originatingInstitution');
 if ($institution && $institution->valueResource()) {
     $institution = $institution->valueResource();
 }
+$summary = $project->value('mare:summary');
 $collectingUrl = $project->value('mare:collectingUrl');
 $collectionUrl = $project->value('mare:collectionUrl');
 // Set the logo.
@@ -24,8 +25,8 @@ if (!$logo) {
     <div class="project-meta">
         <h3 class="title"><?php echo $this->escapeHtml($project->displayTitle()); ?></h3>
         <p class="institution"><?php echo $institution ? $institution->displayTitle() : ''; ?></p>
-        <?php if ($project->displayDescription() !== null): ?>
-        <p class="description"><?php echo $this->escapeHtml($project->displayDescription()); ?></p>
+        <?php if ($summary): ?>
+        <p class="description"><?php echo $this->escapeHtml($summary); ?></p>
         <?php endif; ?>
         <div class="links">
           <?php echo sprintf(
